@@ -24,6 +24,7 @@ mode m_logo = { M_LOGO_T, LOGO_SCENE_INIT, &logo_init, &logo_free, &logo_routine
 void logo_init(void)
 {
 	int i;
+	node *current_node;
 	
 	/* prepare graphics context */
 	gfx_context.clearblack();	/* black background */
@@ -33,7 +34,7 @@ void logo_init(void)
 		scene_addnode(logo_scene, NT_TRIANGLE);
 	
 	for (i = 0; i < logo_scene->node_count; i++) {
-		node *current_node = logo_scene->node_tree[i];
+		current_node = logo_scene->node_tree[i];
 		switch (current_node->type) {
 			case NT_TRIANGLE:
 				nt_triangle_new(current_node);

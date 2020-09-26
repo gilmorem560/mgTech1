@@ -28,8 +28,9 @@ unsigned int scene_addnode(scene *this, unsigned int node_type)
 
 unsigned int scene_addchildnode(scene *this, unsigned int parent_id, unsigned int node_type)
 {
+	node *parent;
 	int child_id = scene_addnode(this, node_type);
-	node *parent = this->node_tree[parent_id];
+	parent = this->node_tree[parent_id];
 	
 	if (parent != NULL)
 		node_setchild(parent, this->node_tree[child_id]);
@@ -72,9 +73,8 @@ void scene_free(scene *this)
 	int i;
 	
 	if (this->node_tree != NULL) {
-		for (i = 0; i < this->node_count; i++) {
+		for (i = 0; i < this->node_count; i++)
 			scene_prunenode(this, i);
-		}
 		
 		free(this->node_tree);
 	}
