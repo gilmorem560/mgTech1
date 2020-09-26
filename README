@@ -1,0 +1,11 @@
+mgTech1 - Simple 3D Game Engine
+
+I've coyly named this referential to id of course. Not trying to do anything
+fancy, just exploring engine concepts, but a bit more modular than my last
+attempt. It's free code, do whatever, just be nice and give credit if it seems
+like a particularly large chunk of code. I'll get more creative on the license
+when/if it is needed.
+
+And yes this is a lazy build for now, not enough going on to even justify
+autotools. Check common.h for configuration settings. Will migrate to autotools
+and/or VS/XCode projects if a need arises.

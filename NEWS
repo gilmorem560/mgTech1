@@ -1,0 +1,24 @@
+9/22/2020 - First Commit!
+
+Basics of scene graphing in place along with some graphics and input support
+
+No physics currently, need to devise a collision scheme
+
+No sound beyond initialization of an ALSA PCM device
+
+Input only has a few keys actually hooked up, no control abstraction yet
+
+No fileio, fileio planned for save files, network traffic, etc...
+
+Current application is just a triangle that moves with WSAD, exit with Q
+
+Planned features in no particular order:
+	Graphics abstraction, currently all code is X11+OpenGL but working
+		on a common interface for other APIs
+	Audio abstraction, currently all code is ALSA
+	True models with bones and stuff, learning blender concurrently
+	Complex parent-child node relationships for animations/following
+	Heightmap-driven stage collision
+	Additional debug rendering, displaying bounding-boxes, etc.
+		Use of said rendering for tool design w/ fixed camera
+	
