@@ -5,7 +5,7 @@
 #include "logo_scene/nodes/nodes.h"
 #include "../scene/scene.h"
 #include "../graphics/graphics.h"
-#include "../sound/sound.h"
+/*#include "../sound/sound.h"*/
 #include "../input/input.h"
 
 scene *logo_scene;
