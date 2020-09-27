@@ -1,8 +1,8 @@
 /*
- * logo - display a simple logo screen
+ * map - a single game map
  */
-#include "logo.h"
-#include "logo_scene/nodes/nodes.h"
+#include "map.h"
+#include "map_scene/nodes/nodes.h"
 #include "../scene/scene.h"
 #include "../graphics/graphics.h"
 #include "../sound/sound.h"
@@ -11,23 +11,23 @@
 static scene *graph;
 static unsigned int i;
 
-static void logo_init(void);
-static void logo_free(void);
-static void logo_input(void);
-static void logo_routine(void);
-static void logo_nextscene(void);
+static void map_init(void);
+static void map_free(void);
+static void map_input(void);
+static void map_routine(void);
+static void map_nextscene(void);
 
-/* m_logo - default logo screen, create unique "scenes" with a logo texture'd node with a timer */
-mode m_logo = { M_LOGO_T, LOGO_SCENE_INIT, &logo_init, &logo_free, &logo_routine, &logo_nextscene };
+/* m_map - default map for testing, selection will be made by calling mode */
+mode m_map = { M_MAP_T, MAP_SCENE_INIT, &map_init, &map_free, &map_routine, &map_nextscene };
 
 /* init - setup graphics and memory objects */
-void logo_init(void)
+void map_init(void)
 {
 	node *current_node;
 	
 	/* prepare graphics context */
 	gfx_context.clearblack();	/* black background */
-	gfx_context.setprj(-1.0, 1.0, -1.0, 1.0, 1.0, 10.0);
+	gfx_context.setortho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
 	
 	/* allocate memory for scene objects */
 	graph = scene_init();
@@ -37,7 +37,7 @@ void logo_init(void)
 		current_node = graph->node_tree[i];
 		switch (current_node->type) {
 			case NT_TRIANGLE:
-				nt_logo_triangle_new(current_node);
+				nt_map_triangle_new(current_node);
 				break;
 			default:
 				break;
@@ -49,7 +49,7 @@ void logo_init(void)
 }
 
 /* free - cleanup memory objects */
-void logo_free(void)
+void map_free(void)
 {
 	for (i = 0; i < graph->node_count; i++)
 		graph->node_tree[i]->free(graph->node_tree[i]);
@@ -60,7 +60,7 @@ void logo_free(void)
 }
 
 /* input - input subroutine */
-void logo_input(void)
+void map_input(void)
 {
 	if (i_keypress & KEY_Q)
 		f_running = false;
@@ -74,17 +74,19 @@ void logo_input(void)
  * 	assessing and applying constraints & collision
  * 	preparing display lists and loading VBOs
  */
-void logo_routine(void)
+void map_routine(void)
 {
-	logo_input();
+	/* process mode-wide input */
+	map_input();
 	
+	/* process scene action */
 	for (i = 0; i < graph->node_count; i++)
 		if (graph->node_tree[i] != NULL && graph->node_tree[i]->isactive == true)
 			graph->node_tree[i]->routine(graph->node_tree[i]);
 		
-	gfx_context.clearscreen();	
+	gfx_context.clearscreen();
 	gfx_context.model_init();
-
+	
 	/* prepare scene graphics */
 	for (i = 0; i < graph->node_count; i++)
 		if (graph->node_tree[i] != NULL && graph->node_tree[i]->isrender == true)
@@ -94,7 +96,7 @@ void logo_routine(void)
 }
 
 /* nextscene - retain the current mode and load in another scene utilizing the same mode */
-void logo_nextscene(void)
+void map_nextscene(void)
 {
 	return;
 }

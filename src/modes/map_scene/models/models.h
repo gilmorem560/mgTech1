@@ -1,5 +1,5 @@
 /*
- * models - models defined for logo
+ * models - models defined for map
  */ 
 #ifndef __MODELS_H__
 #define __MODELS_H__
@@ -11,7 +11,7 @@ extern "C" {
 #include "../../../scene/model.h"
 	
 #define MT_TRIANGLE	0
-extern void mt_logo_triangle_new(model *this);
+extern void mt_map_triangle_new(model *this);
 #define MT_CAMERA	1
 #define MT_LOGO		2
 	

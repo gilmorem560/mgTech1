@@ -20,6 +20,9 @@ typedef struct gfxcontext {
 	void (*startmatrix)(void);
 	void (*stopmatrix)(void);
 	void (*position)(float, float, float);
+	void (*setprj)(double, double, double, double, double, double);
+	void (*setortho)(double, double, double, double, double, double);
+	void (*model_init)(void);
 } gfxcontext;
 
 #if GFX_BACKEND == GFX_GLX || GFX_BACKEND == GFX_WGL
@@ -34,8 +37,11 @@ typedef struct gfxcontext {
 
 extern unsigned short g_xres;
 extern unsigned short g_yres;
-extern double g_aspect_ratio;
+extern float g_aspect_ratio;
 extern bool g_fullscreen;
+enum gfx_props {
+	GFX_PROPS_DEPTH_BUFFER = 1
+};
 	
 #ifdef __cplusplus
 };

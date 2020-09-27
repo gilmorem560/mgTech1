@@ -23,12 +23,18 @@ SCENE =		src/scene/model.o \
 		src/scene/scene.o
 		
 MODES =		src/modes/logo.o \
+		src/modes/map.o \
 		src/modes/modes.o
 		
 MODE_LOGO =	src/modes/logo_scene/models/triangle.o \
 		src/modes/logo_scene/nodes/camera.o \
 		src/modes/logo_scene/nodes/logo.o \
 		src/modes/logo_scene/nodes/triangle.o
+		
+MODE_MAP =	src/modes/map_scene/models/triangle.o \
+		src/modes/map_scene/nodes/camera.o \
+		src/modes/map_scene/nodes/logo.o \
+		src/modes/map_scene/nodes/triangle.o
 	
 MAIN = 		src/main.o
 
@@ -38,6 +44,7 @@ OBJS =		$(GRAPHICS) \
 		$(SCENE) \
 		$(MODES) \
 		$(MODE_LOGO) \
+		$(MODE_MAP) \
 		$(MAIN)
 
 main: $(OBJS)

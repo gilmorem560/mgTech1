@@ -5,6 +5,7 @@
 
 node *node_new(unsigned int type)
 {
+	vect3f init_val = { 0.0f, 0.0f, 0.0f };
 	node *this = malloc(sizeof (node));
 		this->geom = model_new(MT_DEFAULT);
 		this->type = type;
@@ -15,7 +16,8 @@ node *node_new(unsigned int type)
 		this->routine = NULL;
 		this->render = NULL;
 		this->free = NULL;
-		this->properties = NULL;
+		this->position = init_val;
+		this->angle = init_val;
 	
 	return this;
 }

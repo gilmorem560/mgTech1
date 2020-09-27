@@ -12,6 +12,9 @@ extern "C" {
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <string.h>
+
+#include "common/types.h"	/* useful types */
 
 /* global symbols */
 extern bool f_debug;		/* debug mode */

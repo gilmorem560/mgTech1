@@ -10,7 +10,7 @@
 static void mt_triangle_routine(void);
 static void mt_triangle_render(void);
 
-void mt_logo_triangle_new(model *this)
+void mt_map_triangle_new(model *this)
 {
 	this->routine = &mt_triangle_routine;
 	this->render = &mt_triangle_render;
@@ -24,7 +24,7 @@ void mt_triangle_routine(void)
 void mt_triangle_render(void)
 {
 	glBegin(GL_TRIANGLES);
-		glColor3f(0.0f, 0.0f, 1.0f);
+		glColor3f(0.0f, 1.0f, 0.0f);
 		glVertex3f(0.0f, 0.5f, 0.0f);
 		glVertex3f(0.5f, -0.5f, 0.0f);
 		glVertex3f(-0.5f, -0.5f, 0.0f);

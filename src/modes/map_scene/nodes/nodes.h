@@ -1,5 +1,5 @@
 /*
- * nodes - nodes defined for logo
+ * nodes - nodes defined for map
  */ 
 #ifndef __NODES_H__
 #define __NODES_H__
@@ -11,7 +11,7 @@ extern "C" {
 #include "../../../scene/scene.h"
 	
 #define NT_TRIANGLE	0
-extern void nt_logo_triangle_new(node *this);
+extern void nt_map_triangle_new(node *this);
 #define NT_CAMERA	1
 #define NT_LOGO		2
 	

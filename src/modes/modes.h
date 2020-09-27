@@ -19,6 +19,8 @@ typedef struct mode {
 	
 #include "logo.h"
 #define M_LOGO_T	0
+#include "map.h"
+#define M_MAP_T		1
 
 #define init_mode	m_logo
 #define INIT_MODE 	M_LOGO_T

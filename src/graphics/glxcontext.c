@@ -16,6 +16,9 @@ const glxcontext gfx_context = {
 	,&glPushMatrix
 	,&glPopMatrix
 	,&gl_position
+	,&gl_setprj
+	,&gl_setortho
+	,&gl_modelinit
 };
 
 /* X11 variables */
@@ -85,7 +88,7 @@ void glx_init(void)
 	}
 	
 	/* set aspect ratio */
-	g_aspect_ratio = (double) g_xres / (double) g_yres;
+	g_aspect_ratio = (float) g_xres / (float) g_yres;
     
     /* retrieve root window */
     root = XRootWindow(dpy, screen_number);

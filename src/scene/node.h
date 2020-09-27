@@ -23,7 +23,8 @@ typedef struct node {
 	void (*routine)(struct node *);
 	void (*render)(struct node *);
 	void (*free)(struct node *);
-	void *properties;
+	point3f position;
+	ang3f angle;
 } node;
 
 extern node *node_new(unsigned int type);
