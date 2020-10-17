@@ -3,47 +3,49 @@
  */
 #include "node.h"
 
-node *node_new(unsigned int type)
+node *node_new(unsigned int type, unsigned int model_type)
 {
 	vect3f init_val = { 0.0f, 0.0f, 0.0f };
 	node *this = malloc(sizeof (node));
-		this->geom = model_new(MT_DEFAULT);
+		this->id = NODE_ID_NULL;
+		this->geom = model_new(model_type);
 		this->type = type;
-		this->children = malloc(sizeof (int));
+		this->children = malloc(sizeof (node *));
 		this->child_count = 0;
-		this->parent_id = 0;
+		this->parent_id = NODE_ID_NULL;
+		this->isactive = true;
+		this->isrender = true;
 		this->init = NULL;
 		this->routine = NULL;
 		this->render = NULL;
 		this->free = NULL;
 		this->position = init_val;
 		this->angle = init_val;
+		this->rot = 0.0f;
 	
 	return this;
 }
 
-void node_setchild(node *this, node *child)
+unsigned int node_addchild(node *this, node *child)
 {
-	int child_pos;
+	unsigned int child_pos;
 	
-	/* add an entry in the child collection */
-	this->children = realloc(this->children, ++this->child_count * sizeof (int));
+	this->children = realloc(this->children, ++this->child_count * sizeof (node *));
 	child_pos = this->child_count - 1;
 	
-	this->children[child_pos] = child->id;
-	child->parent_id = this->id;
+	this->children[child_pos] = child;
 	
-	return;
+	return child_pos;
 }
 
 void node_orphanchild(node *this, node *child)
 {
 	int i;
-	int child_count = 0;
-	unsigned int *newset = malloc(sizeof (int) * (this->child_count - 1));
+	unsigned int child_count = 0;
+	node **newset = malloc(sizeof (node *) * (this->child_count - 1));
 	
 	for (i = 0; i < this->child_count; i++)
-		if (this->children[i] != child->id)
+		if (this->children[i] != child)
 			newset[child_count++] = this->children[i];
 
 	free(this->children);
@@ -66,7 +68,6 @@ void node_deletechild(node *this, node *child)
 
 void node_free(node *this)
 {
-	int i;
 	model_free(this->geom);
 	free(this->children);
 	free(this);

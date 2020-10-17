@@ -5,7 +5,7 @@ BIN 		= game
 
 CC		= gcc
 CFLAGS		= -g
-LDFLAGS		= -lGL -lX11 -lasound
+LDFLAGS		= -lGL -lX11 -lasound -lm
 
 GRAPHICS =	src/graphics/glxcontext.o \
 		src/graphics/glcontext.o \
@@ -27,13 +27,14 @@ MODES =		src/modes/logo.o \
 		src/modes/modes.o
 		
 MODE_LOGO =	src/modes/logo_scene/models/triangle.o \
+		src/modes/logo_scene/models/tet.o \
 		src/modes/logo_scene/nodes/camera.o \
 		src/modes/logo_scene/nodes/logo.o \
-		src/modes/logo_scene/nodes/triangle.o
+		src/modes/logo_scene/nodes/triangle.o \
+		src/modes/logo_scene/nodes/tet.o
 		
 MODE_MAP =	src/modes/map_scene/models/triangle.o \
 		src/modes/map_scene/nodes/camera.o \
-		src/modes/map_scene/nodes/logo.o \
 		src/modes/map_scene/nodes/triangle.o
 	
 MAIN = 		src/main.o

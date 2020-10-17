@@ -11,8 +11,12 @@ void gl_clearblack(void)
 
 void gl_setprops(enum gfx_props properties)
 {
-	if (properties & GFX_PROPS_DEPTH_BUFFER)
+	if (properties & GFX_DEPTH_BUFFER)
 		glEnable(GL_DEPTH_TEST);
+	if (properties & GFX_CULLING) {
+		glEnable(GL_CULL_FACE);
+		glCullFace(GL_BACK);
+	}
 }
 
 void gl_clearscreen(void)
@@ -26,6 +30,12 @@ void gl_clearscreen(void)
 void gl_position(float x, float y, float z)
 {
 	glTranslatef(x, y, z);
+	return;
+}
+
+void gl_rotate(float ang, float x, float y, float z)
+{
+	glRotatef(ang, x, y, z);
 	return;
 }
 

@@ -24,20 +24,31 @@ mode m_logo = { M_LOGO_T, LOGO_SCENE_INIT, &logo_init, &logo_free, &logo_routine
 void logo_init(void)
 {
 	node *current_node;
+	node *tet;
+	unsigned int current_node_id;
+	point3f tet_pos = { 0.5f, 0.5f, -2.0f };
 	
 	/* prepare graphics context */
 	gfx_context.clearblack();	/* black background */
 	gfx_context.setprj(-1.0, 1.0, -1.0, 1.0, 1.0, 10.0);
+	gfx_context.setprops(GFX_DEPTH_BUFFER | GFX_CULLING);
 	
 	/* allocate memory for scene objects */
 	graph = scene_init();
-		scene_addnode(graph, NT_TRIANGLE);
+	
+	/* prepare a tetrahedron */
+	tet = node_new(NT_TRIANGLE, MT_TET);
+	tet->position = tet_pos;
+	scene_addnode(graph, tet);
 	
 	for (i = 0; i < graph->node_count; i++) {
 		current_node = graph->node_tree[i];
 		switch (current_node->type) {
 			case NT_TRIANGLE:
 				nt_logo_triangle_new(current_node);
+				break;
+			case NT_TET:
+				nt_logo_tet_new(current_node);
 				break;
 			default:
 				break;

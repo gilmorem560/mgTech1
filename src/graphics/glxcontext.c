@@ -16,9 +16,11 @@ const glxcontext gfx_context = {
 	,&glPushMatrix
 	,&glPopMatrix
 	,&gl_position
+	,&gl_rotate
 	,&gl_setprj
 	,&gl_setortho
 	,&gl_modelinit
+	,&gl_setprops
 };
 
 /* X11 variables */

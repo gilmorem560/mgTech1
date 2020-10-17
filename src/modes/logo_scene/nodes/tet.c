@@ -1,22 +1,22 @@
 /*
- * triangle - a simple triangle
+ * tet - a simple tet
  */
 #include "nodes.h"
 #include "../models/models.h"
 #include "../../../graphics/graphics.h"
 #include "../../../input/input.h"
 
-static void nt_triangle_init(node *this);
-static void nt_triangle_routine(node *this);
-static void nt_triangle_render(node *this);
-static void nt_triangle_free(node *this);
+static void nt_tet_init(node *this);
+static void nt_tet_routine(node *this);
+static void nt_tet_render(node *this);
+static void nt_tet_free(node *this);
 
-void nt_logo_triangle_new(node *this)
+void nt_logo_tet_new(node *this)
 {
-	this->init = &nt_triangle_init;
-	this->routine = &nt_triangle_routine;
-	this->render = &nt_triangle_render;
-	this->free = &nt_triangle_free;
+	this->init = &nt_tet_init;
+	this->routine = &nt_tet_routine;
+	this->render = &nt_tet_render;
+	this->free = &nt_tet_free;
 	
 	this->angle.x = 0.0f;
 	this->angle.y = 1.0f;
@@ -25,15 +25,15 @@ void nt_logo_triangle_new(node *this)
 	this->rot = 0.0f;
 }
 
-void nt_triangle_init(node *this)
+void nt_tet_init(node *this)
 {
 	this->isactive = true;
 	this->isrender = true;
-	mt_logo_triangle_new(this->geom);
+	mt_logo_tet_new(this->geom);
 	return;
 }
 
-void nt_triangle_routine(node *this)
+void nt_tet_routine(node *this)
 {
 	if (i_keyheld & KEY_A)
 		this->position.x -= 0.01f;
@@ -51,7 +51,7 @@ void nt_triangle_routine(node *this)
 	return;
 }
 
-void nt_triangle_render(node *this)
+void nt_tet_render(node *this)
 {
 	if (this->geom != NULL) {
 		gfx_context.startmatrix();
@@ -62,7 +62,7 @@ void nt_triangle_render(node *this)
 	}
 }
 
-void nt_triangle_free(node *this)
+void nt_tet_free(node *this)
 {
 	return;
 }

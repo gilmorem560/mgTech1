@@ -22,9 +22,9 @@ typedef struct mode {
 #include "map.h"
 #define M_MAP_T		1
 
-#define init_mode	m_logo
-#define INIT_MODE 	M_LOGO_T
-#define INIT_SCENE	LOGO_SCENE_INIT
+#define init_mode	m_map
+#define INIT_MODE 	M_MAP_T
+#define INIT_SCENE	MAP_SCENE_INIT
 	
 #ifdef __cplusplus
 };

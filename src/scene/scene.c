@@ -13,55 +13,69 @@ scene *scene_init(void)
 	return this;
 }
 
-unsigned int scene_addnode(scene *this, unsigned int node_type)
+unsigned int scene_addnode(scene *this, node *new_node)
 {
-	int node_id;
+	unsigned int node_id = NODE_ID_NULL;
 	
-	this->node_tree = realloc(this->node_tree, ++this->node_count * sizeof (node *));
-	node_id = this->node_count - 1;
-	
-	this->node_tree[node_id] = node_new(node_type);
-		this->node_tree[node_id]->id = node_id;
+	if (new_node->id == NODE_ID_NULL) {
+		this->node_tree = realloc(this->node_tree, ++this->node_count * sizeof (node *));
+		node_id = this->node_count - 1;
+		
+		this->node_tree[node_id] = new_node;
+		new_node->id = node_id;
+	}
 	
 	return node_id;
 }
 
-unsigned int scene_addchildnode(scene *this, unsigned int parent_id, unsigned int node_type)
+unsigned int scene_addchildnode(scene *this, node *child_node, unsigned int parent_id)
 {
-	node *parent;
-	int child_id = scene_addnode(this, node_type);
-	parent = this->node_tree[parent_id];
+	unsigned int child_id = NODE_ID_NULL;
+	node *parent_node;
 	
-	if (parent != NULL)
-		node_setchild(parent, this->node_tree[child_id]);
-	
+	if (child_node->parent_id == NODE_ID_NULL) {
+		child_id = scene_addnode(this, child_node);
+		if (child_id != NODE_ID_NULL) {
+			parent_node = this->node_tree[parent_id];
+			if (parent_node != NULL) {
+				child_id = node_addchild(parent_node, child_node);
+				child_node->parent_id = parent_id;
+			} else
+				child_id = NODE_ID_NULL;
+		}
+	}
+		
 	return child_id;
 }
 
 static void scene_prunenode(scene *this, unsigned int node_id)
 {
-	if (this->node_tree[node_id] != NULL)
-		node_free(this->node_tree[node_id]);
+	node **this_node = &this->node_tree[node_id];
+	if (*this_node != NULL) {
+		node_free(*this_node);
+		*this_node = NULL;
+	}
 	return;
 }
 
 void scene_deletenode(scene *this, unsigned int node_id)
 {
-	int i;
-	int child_id;
 	node *this_node = this->node_tree[node_id];
+	unsigned int parent_id = this_node->parent_id;
+	unsigned int i;
 	node *parent_node;
+	node *child_node;
 	
-	/* orphan the node */
-	if (this_node->parent_id != 0) {
-		parent_node = this->node_tree[this_node->parent_id];
-		node_orphanchild(parent_node, this_node);
+	for (i = 0; i < this_node->child_count; i++) {
+		child_node = this_node->children[i];
+		node_deletechild(this_node, child_node);
+		child_node->parent_id = parent_id;
 	}
 	
-	/* orphan the children */
-	for (i = 0; i < this_node->child_count; i++) {
-		child_id = this_node->children[i];
-		node_orphanchild(this_node, this->node_tree[child_id]);
+	if (parent_id != NODE_ID_NULL) {
+		parent_node = this->node_tree[parent_id];
+		if (parent_node != NULL)
+			node_orphanchild(parent_node, this_node);
 	}
 	
 	/* prune from tree */
@@ -70,7 +84,7 @@ void scene_deletenode(scene *this, unsigned int node_id)
 
 void scene_free(scene *this)
 {
-	int i;
+	unsigned int i;
 	
 	if (this->node_tree != NULL) {
 		for (i = 0; i < this->node_count; i++)

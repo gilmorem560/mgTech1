@@ -13,6 +13,8 @@ extern "C" {
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <math.h>
+#include <limits.h>
 
 #include "common/types.h"	/* useful types */
 
@@ -25,10 +27,6 @@ extern bool f_running;		/* running mode */
 /* graphics backend to bundle */
 #define GFX_GLX	0 /* X11 OpenGL */
 #define GFX_WGL 1 /* Windows OpenGL */
-#define GFX_VKX 2 /* X11 Vulkan */
-#define GFX_VKW 3 /* Windows Vulkan */
-#define GFX_M   4 /* Apple Metal */
-#define GFX_DX  5 /* Windows DirectX */
 
 /* input backend to bundle */
 #define INPUT_X11 0 /* X11 input */

@@ -12,8 +12,10 @@ extern "C" {
 	
 #define MT_TRIANGLE	0
 extern void mt_logo_triangle_new(model *this);
-#define MT_CAMERA	1
-#define MT_LOGO		2
+#define MT_TET		1
+extern void mt_logo_tet_new(model *this);
+#define MT_CAMERA	2
+#define MT_LOGO		3
 	
 #ifdef __cplusplus
 };

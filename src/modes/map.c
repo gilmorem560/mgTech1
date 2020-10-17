@@ -24,14 +24,19 @@ mode m_map = { M_MAP_T, MAP_SCENE_INIT, &map_init, &map_free, &map_routine, &map
 void map_init(void)
 {
 	node *current_node;
+	point3f pos = { 0.0f, 0.0f, -2.0f };
 	
 	/* prepare graphics context */
 	gfx_context.clearblack();	/* black background */
-	gfx_context.setortho(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+	gfx_context.setprj(-1.0, 1.0, -1.0, 1.0, 1.0, 10.0);
 	
 	/* allocate memory for scene objects */
 	graph = scene_init();
-		scene_addnode(graph, NT_TRIANGLE);
+	
+	/* prepare a triangle */
+	current_node = node_new(NT_TRIANGLE, MT_TRIANGLE);
+	current_node->position = pos;
+	scene_addnode(graph, current_node);
 	
 	for (i = 0; i < graph->node_count; i++) {
 		current_node = graph->node_tree[i];

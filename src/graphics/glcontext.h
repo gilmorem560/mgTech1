@@ -26,9 +26,11 @@ typedef gfxcontext glcontext;
 extern void gl_clearblack(void);
 extern void gl_clearscreen(void);
 extern void gl_position(float x, float y, float z);
+extern void gl_rotate(float ang, float x, float y, float z);
 extern void gl_setprj(double left, double right, double bottom, double top, double nearVal, double farVal);
 extern void gl_setortho(double left, double right, double bottom, double top, double nearVal, double farVal);
 extern void gl_modelinit(void);
+extern void gl_setprops(enum gfx_props);
 	
 #ifdef __cplusplus
 };
